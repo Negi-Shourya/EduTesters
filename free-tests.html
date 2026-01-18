@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Tests | EduTesters</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:"Segoe UI",sans-serif;
+    background:#f7f9fc;
+}
+header{
+    background:#1565c0;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+}
+
+.test-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.test{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
+.lock{
+    font-size:2rem;
+}
+.info{
+    color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Starters – Free Tests</h1>
+    <p>15 Full-Length JEE Main Tests</p>
+</header>
+
+<div class="container">
+    <div class="test-grid">
+
+        <!-- 15 Locked Tests -->
+        <script>
+            for(let i=1;i<=15;i++){
+                document.write(`
+                <div class="test">
+                    <div class="lock">🔒 Test ${i}</div>
+                    <p class="info">Marks: 300</p>
+                    <p class="info">Duration: 3 Hours</p>
+                    <p class="info">Login / Purchase required</p>
+                </div>
+                `);
+            }
+        </script>
+
+    </div>
+</div>
+
+</body>
+</html>
