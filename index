@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EduTesters | JEE Main Test Series</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: "Segoe UI", sans-serif;
+    background:#f7f9fc;
+    color:#222;
+}
+
+header{
+    background:#ffffff;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+header h1{
+    margin:0;
+    font-size:2.6rem;
+    color:#1565c0;
+}
+header p{
+    margin-top:8px;
+    color:#555;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.login-box{
+    text-align:right;
+}
+.login-btn{
+    background:#1565c0;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+    margin-top:50px;
+}
+
+.card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.card h2{
+    margin-top:0;
+    color:#1565c0;
+}
+
+.price{
+    font-size:1.8rem;
+    margin:15px 0;
+}
+.old{
+    text-decoration:line-through;
+    color:#888;
+    font-size:1rem;
+}
+
+.btn{
+    background:#2e7d32;
+    color:#fff;
+    border:none;
+    padding:14px;
+    width:100%;
+    border-radius:8px;
+    font-size:1rem;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.btn.secondary{
+    background:#1565c0;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.payment{
+    display:none;
+    margin-top:20px;
+    background:#f1f5ff;
+    padding:15px;
+    border-radius:10px;
+}
+
+footer{
+    background:#ffffff;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+    font-size:0.9rem;
+    box-shadow:0 -4px 15px rgba(0,0,0,0.05);
+}
+footer p{
+    margin:5px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>EduTesters</h1>
+    <p>JEE Main Online Test Series</p>
+</header>
+
+<div class="container">
+
+    <div class="login-box">
+        <button class="login-btn" onclick="googleLogin()">Login with Gmail</button>
+    </div>
+
+    <div class="cards">
+
+        <!-- FREE SERIES -->
+        <div class="card">
+            <h2>Starters (Free)</h2>
+            <p class="price">₹0</p>
+            <button class="btn secondary" onclick="openFree()">View Free Tests</button>
+            <p>15 Full-length tests (Locked)</p>
+        </div>
+
+        <!-- PAID SERIES -->
+        <div class="card">
+            <h2>Rank Boosters</h2>
+            <p class="price">
+                <span class="old">₹5999</span><br>
+                ₹3999
+            </p>
+
+            <input type="text" id="coupon" placeholder="Coupon Code">
+            <button class="btn" onclick="applyCoupon()">Apply Coupon</button>
+            <p id="finalPrice">Final Price: ₹3999</p>
+
+            <button class="btn" onclick="openPayment()">Pay via UPI</button>
+
+            <div class="payment" id="paymentBox">
+                <p><strong>UPI ID:</strong> sumitsafe2706@okhdfcbank</p>
+                <p><strong>Amount:</strong> ₹<span id="payAmount">3999</span></p>
+
+                <a id="upiLink" target="_blank">
+                    <button class="btn secondary">Pay Now</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 EduTesters. All Rights Reserved.</p>
+    <p>📞 7876720376 | ✉️ edutesters@gmail.com</p>
+</footer>
+
+<script>
+let price = 3999;
+
+function applyCoupon(){
+    if(document.getElementById("coupon").value === "Jee2k26"){
+        price = 2999;
+        document.getElementById("finalPrice").innerText = "Final Price: ₹2999 (Coupon Applied)";
+    } else {
+        alert("Invalid Coupon");
+    }
+}
+
+function openPayment(){
+    document.getElementById("paymentBox").style.display = "block";
+    document.getElementById("payAmount").innerText = price;
+    document.getElementById("upiLink").href =
+    `upi://pay?pa=sumitsafe2706@okhdfcbank&pn=EduTesters&am=${price}&cu=INR`;
+}
+
+function openFree(){
+    window.location.href = "free-tests.html";
+}
+
+function googleLogin(){
+    alert("Google login UI only. Backend needed for real login.");
+}
+</script>
+
+</body>
+</html>
