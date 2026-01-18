@@ -206,5 +206,31 @@ function googleLogin(){
     alert("Google login UI only. Backend needed for real login.");
 }
 </script>
+ <!-- Google Sign-In -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<div id="g_id_onload"
+     data-client_id="207841444142-0l7b5j5tb96hl5a0vqourca5fvv63q27.apps.googleusercontent.com"
+     data-callback="handleGoogleLogin">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline">
+</div>
+
+<script>
+function handleGoogleLogin(response){
+    console.log("JWT Token:", response.credential);
+
+    // TEMP: store login status
+    localStorage.setItem("loggedIn", "true");
+
+    alert("Login successful!");
+}
+</script>
+
+
 </body>
 </html>
