@@ -202,32 +202,39 @@ function openFree(){
     window.location.href = "free-tests.html";
 }
 
-
-
- <!-- Google Sign-In -->
+</script>
+    <!-- Google Sign-In -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-<div id="g_id_onload"
-     data-client_id="207841444142-0l7b5j5tb96hl5a0vqourca5fvv63q27.apps.googleusercontent.com"
-     data-callback="handleGoogleLogin">
-</div>
-
-<div class="g_id_signin"
-     data-type="standard"
-     data-size="large"
-     data-theme="outline">
-</div>
+<button id="googleBtn" style="
+  padding:12px 18px;
+  font-size:14px;
+  cursor:pointer;
+  border-radius:6px;
+">
+Sign in with Google
+</button>
 
 <script>
-function handleGoogleLogin(response){
-    console.log("JWT Token:", response.credential);
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "207841444142-017b5j5tb96hl5a0vgourca5fvv63q27.apps.googleusercontent.com",
+    callback: handleGoogleLogin
+  });
 
-    // TEMP: store login status
-    localStorage.setItem("loggedIn", "true");
+  google.accounts.id.renderButton(
+    document.getElementById("googleBtn"),
+    { theme: "outline", size: "large" }
+  );
+};
 
-    alert("Login successful!");
+function handleGoogleLogin(response) {
+  console.log("JWT Token:", response.credential);
+  localStorage.setItem("loggedIn", "true");
+  alert("Login successful!");
 }
 </script>
+
 
 
 </body>
