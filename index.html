@@ -10,7 +10,7 @@
     <style>
         :root {
             --primary: #0d47a1;
-            --primary-light: #e3f2fd;
+            --secondary: #2e7d32;
             --bg-color: #f5f8ff;
             --text-main: #222;
         }
@@ -20,12 +20,15 @@
             font-family: 'Inter', sans-serif;
             background: var(--bg-color);
             color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* --- HEADER & NAVIGATION --- */
         header {
             background: #ffffff;
-            padding: 15px 5%;
+            padding: 12px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,7 +48,6 @@
             font-size: 1.6rem;
             cursor: pointer;
             color: var(--primary);
-            transition: 0.2s;
         }
 
         header h1 {
@@ -59,7 +61,7 @@
         .side-drawer {
             position: fixed;
             top: 0;
-            left: -300px; /* Initially hidden */
+            left: -300px;
             width: 280px;
             height: 100%;
             background: #fff;
@@ -87,11 +89,10 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 500;
-            transition: 0.2s;
         }
 
         .drawer-item:hover {
-            background: var(--primary-light);
+            background: #e3f2fd;
             color: var(--primary);
         }
 
@@ -104,19 +105,22 @@
         }
         .overlay.active { display: block; }
 
-        /* --- MAIN CONTENT --- */
-        .container {
+        /* --- CONTENT --- */
+        .main-content {
+            flex: 1;
             max-width: 1100px;
             margin: auto;
             padding: 40px 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .hero-text {
+        .hero-section {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .hero-text p {
+        .hero-section p {
             color: #555;
             font-size: 1.1rem;
         }
@@ -129,8 +133,8 @@
 
         .card {
             background: #ffffff;
-            padding: 35px;
-            border-radius: 16px;
+            padding: 40px 30px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             text-align: center;
             transition: transform 0.3s ease;
@@ -139,15 +143,15 @@
         .card:hover { transform: translateY(-5px); }
 
         .card h2 { color: var(--primary); margin-top: 0; }
-        .price { font-size: 2rem; font-weight: 700; margin: 15px 0; }
-        .old { text-decoration: line-through; color: #888; font-size: 1rem; }
+        .price { font-size: 2.2rem; font-weight: 700; margin: 20px 0; }
+        .old-price { text-decoration: line-through; color: #888; font-size: 1.1rem; }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            margin-top: 15px;
+            padding: 15px;
+            margin-top: 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -155,21 +159,19 @@
         }
 
         .btn-blue { background: var(--primary); color: #fff; }
-        .btn-blue:hover { background: #0a3d8a; }
-
-        .btn-locked { background: #e0e0e0; color: #888; cursor: not-allowed; }
+        .btn-green { background: var(--secondary); color: #fff; cursor: not-allowed; opacity: 0.8; }
 
         /* --- FOOTER --- */
         footer {
             background: #ffffff;
-            margin-top: 100px;
             padding: 30px 20px;
             text-align: center;
-            font-size: 0.95rem;
             box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        footer p { margin: 8px 0; color: #555; }
+        footer p { margin: 8px 0; color: #555; font-size: 0.95rem; }
     </style>
 </head>
 
@@ -178,23 +180,23 @@
 <div class="overlay" id="overlay"></div>
 <div class="side-drawer" id="sideDrawer">
     <div class="drawer-header">
-        <h3 style="margin:0; color: var(--primary);">EduTesters Menu</h3>
+        <h3 style="margin:0;">EduTesters Menu</h3>
     </div>
     <a href="profile.html" class="drawer-item">
         <i class="fas fa-user-circle"></i> My Profile
     </a>
     <a href="#" class="drawer-item">
-        <i class="fas fa-history"></i> Test History
+        <i class="fas fa-chart-line"></i> Performance
     </a>
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-    <a href="#" class="drawer-item" onclick="logoutUser()">
+    <hr style="border:0; border-top: 1px solid #eee; margin: 15px 0;">
+    <a href="#" class="drawer-item" onclick="logout()" id="sidebarLogout" style="display:none;">
         <i class="fas fa-sign-out-alt"></i> Logout
     </a>
 </div>
 
 <header>
     <div class="nav-left">
-        <div class="menu-btn" onclick="toggleSidebar()">
+        <div class="menu-btn" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
         <h1>EduTesters</h1>
@@ -203,9 +205,9 @@
     <div id="googleBtn"></div>
 </header>
 
-<div class="container">
-    <div class="hero-text">
-        <p>JEE Main Online Test Series & Preparation Portal</p>
+<div class="main-content">
+    <div class="hero-section">
+        <p>JEE Main Online Test Series & Preparation</p>
     </div>
 
     <div class="card-grid">
@@ -213,14 +215,16 @@
             <h2>Starters (Free)</h2>
             <div class="price">₹0</div>
             <p>15 Full-length tests • 300 Marks • 3 Hours</p>
-            <button class="btn btn-blue" onclick="goToFreeTests()">Access Free Tests</button>
+            <button class="btn btn-blue" onclick="openFreeTests()">Access Free Tests</button>
         </div>
 
         <div class="card">
             <h2>Rank Boosters</h2>
-            <div class="price"><span class="old">₹5999</span><br>₹3999</div>
+            <div class="price">
+                <span class="old-price">₹5999</span><br>₹3999
+            </div>
             <p>Coming Soon</p>
-            <button class="btn btn-locked">Coming Soon</button>
+            <button class="btn btn-green">Locked</button>
         </div>
     </div>
 </div>
@@ -233,47 +237,71 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
-    // 1. Sidebar Control
-    function toggleSidebar() {
+    // 1. Sidebar functionality
+    function toggleMenu() {
         document.getElementById('sideDrawer').classList.toggle('active');
         document.getElementById('overlay').classList.toggle('active');
     }
 
-    document.getElementById('overlay').onclick = toggleSidebar;
+    document.getElementById('overlay').onclick = toggleMenu;
 
-    // 2. Google Identity Initialization
-    window.onload = function () {
-        google.accounts.id.initialize({
-            client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
-            callback: handleGoogleResponse
-        });
+    // 2. Initialize Google Sign-In
+    function initializeGoogleLogin() {
+        if (typeof google !== 'undefined') {
+            google.accounts.id.initialize({
+                client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
 
-        google.accounts.id.renderButton(
-            document.getElementById("googleBtn"),
-            { theme: "outline", size: "large", shape: "pill" }
-        );
-    };
-
-    function handleGoogleResponse(response) {
-        console.log("Login Success");
-        localStorage.setItem("userStatus", "loggedIn");
-        alert("Success! You are now logged in.");
-    }
-
-    // 3. Navigation Logic
-    function goToFreeTests() {
-        if (localStorage.getItem("userStatus") === "loggedIn") {
-            window.location.href = "free-tests.html";
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtn"),
+                { theme: "outline", size: "large", shape: "pill" }
+            );
         } else {
-            alert("Please sign in with Google to access the test series.");
+            // Retry if library isn't ready
+            setTimeout(initializeGoogleLogin, 300);
         }
     }
 
-    function logoutUser() {
-        localStorage.removeItem("userStatus");
+    function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+        localStorage.setItem("userLoggedIn", "true");
+        alert("Login Successful! Welcome.");
+        updateUI();
+    }
+
+    // 3. UI Update Logic (Shows Logout if logged in)
+    function updateUI() {
+        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+        const logoutBtn = document.getElementById('sidebarLogout');
+        
+        if (isLoggedIn) {
+            logoutBtn.style.display = "flex";
+            document.getElementById("googleBtn").innerHTML = "<span style='color:#2e7d32; font-weight:bold; padding: 10px;'>✓ Logged In</span>";
+        }
+    }
+
+    // 4. Redirect Logic for Free Tests
+    function openFreeTests() {
+        if (localStorage.getItem("userLoggedIn") === "true") {
+            window.location.href = "free-tests.html";
+        } else {
+            alert("Please login with Google in the top right to access tests.");
+        }
+    }
+
+    // 5. Logout Logic
+    function logout() {
+        localStorage.removeItem("userLoggedIn");
         alert("Logged out successfully.");
         location.reload();
     }
+
+    // Start everything on load
+    window.onload = function() {
+        initializeGoogleLogin();
+        updateUI();
+    };
 </script>
 
 </body>
