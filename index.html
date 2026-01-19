@@ -8,223 +8,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root {
-            --primary: #0d47a1;
-            --secondary: #2e7d32;
-            --bg-color: #f5f8ff;
-            --text-main: #222;
-        }
+        :root { --primary: #0d47a1; --bg-color: #f5f8ff; --text-main: #222; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        header { background: #fff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+        .menu-btn { font-size: 1.6rem; cursor: pointer; color: var(--primary); }
+        header h1 { margin: 0; color: var(--primary); font-size: 1.8rem; }
+        
+        #userDisplay { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--primary); }
+        .user-pic { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); }
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            background: #ffffff;
-            padding: 12px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .menu-btn {
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: var(--primary);
-        }
-
-        header h1 {
-            margin: 0;
-            color: var(--primary);
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        /* --- SIDEBAR DRAWER --- */
-        .side-drawer {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 280px;
-            height: 100%;
-            background: #fff;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
-            transition: 0.3s ease;
-            z-index: 2000;
-            padding-top: 20px;
-        }
-
-        .side-drawer.active {
-            left: 0;
-        }
-
-        .drawer-header {
-            padding: 10px 25px 20px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
-        }
-
-        .drawer-item {
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .drawer-item:hover {
-            background: #e3f2fd;
-            color: var(--primary);
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            display: none;
-            z-index: 1500;
-        }
+        .side-drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #fff; box-shadow: 5px 0 15px rgba(0,0,0,0.1); transition: 0.3s ease; z-index: 2000; padding-top: 20px; }
+        .side-drawer.active { left: 0; }
+        .drawer-item { padding: 15px 25px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--text-main); font-weight: 500; }
+        .drawer-item:hover { background: #e3f2fd; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; z-index: 1500; }
         .overlay.active { display: block; }
 
-        /* --- CONTENT --- */
-        .main-content {
-            flex: 1;
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .hero-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .hero-section p {
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: #ffffff;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        .card h2 { color: var(--primary); margin-top: 0; }
-        .price { font-size: 2.2rem; font-weight: 700; margin: 20px 0; }
-        .old-price { text-decoration: line-through; color: #888; font-size: 1.1rem; }
-
-        .btn {
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        .main-content { flex: 1; max-width: 1100px; margin: auto; padding: 40px 20px; width: 100%; box-sizing: border-box; text-align: center; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+        .card { background: #fff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; margin-top: 20px; }
         .btn-blue { background: var(--primary); color: #fff; }
-        .btn-green { background: var(--secondary); color: #fff; cursor: not-allowed; opacity: 0.8; }
 
-        /* --- FOOTER --- */
-        footer {
-            background: #ffffff;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        footer p { margin: 8px 0; color: #555; font-size: 0.95rem; }
+        footer { background: #fff; padding: 30px; text-align: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
     </style>
 </head>
-
 <body>
 
 <div class="overlay" id="overlay"></div>
 <div class="side-drawer" id="sideDrawer">
-    <div class="drawer-header">
-        <h3 style="margin:0;">EduTesters Menu</h3>
-    </div>
-    <a href="profile.html" class="drawer-item">
-        <i class="fas fa-user-circle"></i> My Profile
-    </a>
-    <a href="#" class="drawer-item">
-        <i class="fas fa-chart-line"></i> Performance
-    </a>
-    <hr style="border:0; border-top: 1px solid #eee; margin: 15px 0;">
-    <a href="#" class="drawer-item" onclick="logout()" id="sidebarLogout" style="display:none;">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
+    <div style="padding: 20px; border-bottom: 1px solid #eee;"><h3>Menu</h3></div>
+    <a href="profile.html" class="drawer-item"><i class="fas fa-user-circle"></i> My Profile</a>
+    <a href="#" class="drawer-item" onclick="logout()" id="sidebarLogout" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>
 
 <header>
     <div class="nav-left">
-        <div class="menu-btn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         <h1>EduTesters</h1>
     </div>
-    
-    <div id="googleBtn"></div>
+    <div id="authArea">
+        <div id="googleBtn"></div>
+        <div id="userDisplay" style="display:none;"></div>
+    </div>
 </header>
 
 <div class="main-content">
-    <div class="hero-section">
-        <p>JEE Main Online Test Series & Preparation</p>
-    </div>
-
+    <p>JEE Main Online Test Series & Preparation</p>
     <div class="card-grid">
         <div class="card">
             <h2>Starters (Free)</h2>
-            <div class="price">₹0</div>
-            <p>15 Full-length tests • 300 Marks • 3 Hours</p>
             <button class="btn btn-blue" onclick="openFreeTests()">Access Free Tests</button>
         </div>
-
-        <div class="card">
+        <div class="card" style="opacity:0.7">
             <h2>Rank Boosters</h2>
-            <div class="price">
-                <span class="old-price">₹5999</span><br>₹3999
-            </div>
-            <p>Coming Soon</p>
-            <button class="btn btn-green">Locked</button>
+            <button class="btn" disabled>Coming Soon</button>
         </div>
     </div>
 </div>
@@ -235,74 +75,50 @@
 </footer>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
-    // 1. Sidebar functionality
-    function toggleMenu() {
-        document.getElementById('sideDrawer').classList.toggle('active');
-        document.getElementById('overlay').classList.toggle('active');
-    }
-
+    function toggleMenu() { document.getElementById('sideDrawer').classList.toggle('active'); document.getElementById('overlay').classList.toggle('active'); }
     document.getElementById('overlay').onclick = toggleMenu;
 
-    // 2. Initialize Google Sign-In
+    function decodeJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        return JSON.parse(window.atob(base64));
+    }
+
     function initializeGoogleLogin() {
-        if (typeof google !== 'undefined') {
-            google.accounts.id.initialize({
-                client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-
-            google.accounts.id.renderButton(
-                document.getElementById("googleBtn"),
-                { theme: "outline", size: "large", shape: "pill" }
-            );
-        } else {
-            // Retry if library isn't ready
-            setTimeout(initializeGoogleLogin, 300);
-        }
+        google.accounts.id.initialize({
+            client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
+            callback: (response) => {
+                const data = decodeJwt(response.credential);
+                localStorage.setItem("userLoggedIn", "true");
+                localStorage.setItem("userName", data.name);
+                localStorage.setItem("userEmail", data.email);
+                localStorage.setItem("userPic", data.picture);
+                updateUI();
+            }
+        });
+        google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", shape: "pill" });
     }
 
-    function handleCredentialResponse(response) {
-        console.log("Encoded JWT ID token: " + response.credential);
-        localStorage.setItem("userLoggedIn", "true");
-        alert("Login Successful! Welcome.");
-        updateUI();
-    }
-
-    // 3. UI Update Logic (Shows Logout if logged in)
     function updateUI() {
         const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-        const logoutBtn = document.getElementById('sidebarLogout');
-        
         if (isLoggedIn) {
-            logoutBtn.style.display = "flex";
-            document.getElementById("googleBtn").innerHTML = "<span style='color:#2e7d32; font-weight:bold; padding: 10px;'>✓ Logged In</span>";
+            document.getElementById("googleBtn").style.display = "none";
+            const userDisplay = document.getElementById("userDisplay");
+            userDisplay.style.display = "flex";
+            userDisplay.innerHTML = `<img src="${localStorage.getItem('userPic')}" class="user-pic"> <span>${localStorage.getItem('userName')}</span>`;
+            document.getElementById("sidebarLogout").style.display = "flex";
         }
     }
 
-    // 4. Redirect Logic for Free Tests
     function openFreeTests() {
-        if (localStorage.getItem("userLoggedIn") === "true") {
-            window.location.href = "free-tests.html";
-        } else {
-            alert("Please login with Google in the top right to access tests.");
-        }
+        if (localStorage.getItem("userLoggedIn") === "true") window.location.href = "free-tests.html";
+        else alert("Please login first!");
     }
 
-    // 5. Logout Logic
-    function logout() {
-        localStorage.removeItem("userLoggedIn");
-        alert("Logged out successfully.");
-        location.reload();
-    }
+    function logout() { localStorage.clear(); location.reload(); }
 
-    // Start everything on load
-    window.onload = function() {
-        initializeGoogleLogin();
-        updateUI();
-    };
+    window.onload = () => { setTimeout(initializeGoogleLogin, 300); updateUI(); };
 </script>
-
 </body>
 </html>
