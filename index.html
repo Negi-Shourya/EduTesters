@@ -9,168 +9,269 @@
     
     <style>
         :root {
-            --primary: #1a73e8;
-            --text-dark: #202124;
-            --bg-light: #f8f9fa;
+            --primary: #0d47a1;
+            --primary-light: #e3f2fd;
+            --bg-color: #f5f8ff;
+            --text-main: #222;
         }
 
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background: var(--bg-light);
+            background: var(--bg-color);
+            color: var(--text-main);
         }
 
-        /* Navbar */
+        /* --- HEADER & NAVIGATION --- */
         header {
-            background: #fff;
+            background: #ffffff;
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .menu-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-dark); }
-        .logo { font-size: 1.4rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        /* Sidebar / Drawer */
+        .menu-btn {
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--primary);
+            transition: 0.2s;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* --- SIDEBAR DRAWER --- */
         .side-drawer {
             position: fixed;
             top: 0;
-            left: -280px; /* Hidden by default */
+            left: -300px; /* Initially hidden */
             width: 280px;
             height: 100%;
             background: #fff;
             box-shadow: 5px 0 15px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            transition: 0.3s ease;
             z-index: 2000;
-            padding-top: 60px;
+            padding-top: 20px;
         }
 
-        .side-drawer.active { left: 0; }
+        .side-drawer.active {
+            left: 0;
+        }
+
+        .drawer-header {
+            padding: 10px 25px 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
         .drawer-item {
             padding: 15px 25px;
             display: flex;
             align-items: center;
             gap: 15px;
             text-decoration: none;
-            color: var(--text-dark);
+            color: var(--text-main);
             font-weight: 500;
             transition: 0.2s;
         }
-        .drawer-item:hover { background: #f0f4ff; color: var(--primary); }
-        
+
+        .drawer-item:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
             display: none;
             z-index: 1500;
         }
         .overlay.active { display: block; }
 
-        /* Main Content */
-        .hero { text-align: center; padding: 50px 20px; background: #fff; }
-        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
-        
+        /* --- MAIN CONTENT --- */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-text p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card h2 { color: var(--primary); margin-top: 0; }
+        .price { font-size: 2rem; font-weight: 700; margin: 15px 0; }
+        .old { text-decoration: line-through; color: #888; font-size: 1rem; }
+
         .btn {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            margin-top: 15px;
             border: none;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 15px;
+            transition: 0.3s;
         }
+
         .btn-blue { background: var(--primary); color: #fff; }
+        .btn-blue:hover { background: #0a3d8a; }
+
+        .btn-locked { background: #e0e0e0; color: #888; cursor: not-allowed; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #ffffff;
+            margin-top: 100px;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+        }
+
+        footer p { margin: 8px 0; color: #555; }
     </style>
 </head>
+
 <body>
 
 <div class="overlay" id="overlay"></div>
 <div class="side-drawer" id="sideDrawer">
-    <a href="profile.html" class="drawer-item"><i class="fas fa-user-circle"></i> My Profile</a>
-    <a href="#" class="drawer-item"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a href="#" class="drawer-item"><i class="fas fa-cog"></i> Settings</a>
+    <div class="drawer-header">
+        <h3 style="margin:0; color: var(--primary);">EduTesters Menu</h3>
+    </div>
+    <a href="profile.html" class="drawer-item">
+        <i class="fas fa-user-circle"></i> My Profile
+    </a>
+    <a href="#" class="drawer-item">
+        <i class="fas fa-history"></i> Test History
+    </a>
     <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-    <a href="#" class="drawer-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="#" class="drawer-item" onclick="logoutUser()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
 </div>
 
 <header>
     <div class="nav-left">
-        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <a href="#" class="logo">EduTesters</a>
+        <div class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <h1>EduTesters</h1>
     </div>
+    
     <div id="googleBtn"></div>
 </header>
 
-<section class="hero">
-    <h1>JEE Main Test Series</h1>
-    <p>Practice with the best-in-class mock tests.</p>
-</section>
-
 <div class="container">
+    <div class="hero-text">
+        <p>JEE Main Online Test Series & Preparation Portal</p>
+    </div>
+
     <div class="card-grid">
         <div class="card">
             <h2>Starters (Free)</h2>
-            <p>15 Full-length tests</p>
-            <button class="btn btn-blue" id="accessFreeBtn">Access Free Tests</button>
+            <div class="price">₹0</div>
+            <p>15 Full-length tests • 300 Marks • 3 Hours</p>
+            <button class="btn btn-blue" onclick="goToFreeTests()">Access Free Tests</button>
         </div>
-        <div class="card" style="opacity: 0.7;">
+
+        <div class="card">
             <h2>Rank Boosters</h2>
+            <div class="price"><span class="old">₹5999</span><br>₹3999</div>
             <p>Coming Soon</p>
-            <button class="btn" disabled>Locked</button>
+            <button class="btn btn-locked">Coming Soon</button>
         </div>
     </div>
 </div>
 
+<footer>
+    <p>© 2026 EduTesters. All Rights Reserved.</p>
+    <p>📞 7876720376 | ✉️ negishourya1980@gmail.com</p>
+</footer>
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
-    // Toggle Sidebar
-    function toggleMenu() {
+    // 1. Sidebar Control
+    function toggleSidebar() {
         document.getElementById('sideDrawer').classList.toggle('active');
         document.getElementById('overlay').classList.toggle('active');
     }
 
-    document.getElementById('overlay').onclick = toggleMenu;
+    document.getElementById('overlay').onclick = toggleSidebar;
 
-    // Google Sign-In Setup
+    // 2. Google Identity Initialization
     window.onload = function () {
         google.accounts.id.initialize({
             client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
-            callback: handleGoogleLogin
+            callback: handleGoogleResponse
         });
+
         google.accounts.id.renderButton(
             document.getElementById("googleBtn"),
-            { theme: "outline", size: "medium" }
+            { theme: "outline", size: "large", shape: "pill" }
         );
     };
 
-    function handleGoogleLogin(response) {
-        console.log("Logged In Successfully");
-        localStorage.setItem("loggedIn", "true");
-        alert("Welcome to EduTesters!");
-        location.reload(); 
+    function handleGoogleResponse(response) {
+        console.log("Login Success");
+        localStorage.setItem("userStatus", "loggedIn");
+        alert("Success! You are now logged in.");
     }
 
-    // Redirect Logic
-    document.getElementById('accessFreeBtn').onclick = function() {
-        if(localStorage.getItem("loggedIn") === "true") {
+    // 3. Navigation Logic
+    function goToFreeTests() {
+        if (localStorage.getItem("userStatus") === "loggedIn") {
             window.location.href = "free-tests.html";
         } else {
-            alert("Please login with Google first to access tests.");
+            alert("Please sign in with Google to access the test series.");
         }
-    };
+    }
 
-    function logout() {
-        localStorage.removeItem("loggedIn");
+    function logoutUser() {
+        localStorage.removeItem("userStatus");
+        alert("Logged out successfully.");
         location.reload();
     }
 </script>
