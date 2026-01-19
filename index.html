@@ -4,45 +4,319 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduTesters | JEE Main Test Series</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        :root { --primary: #0d47a1; --secondary: #2e7d32; --bg-color: #f5f8ff; --text-main: #222; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        header { background: #fff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .menu-btn { font-size: 1.6rem; cursor: pointer; color: var(--primary); }
-        header h1 { margin: 0; color: var(--primary); font-size: 1.8rem; }
-        
-        #userDisplay { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--primary); }
-        .user-pic { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); }
-
-        /* Sidebar & Overlay */
-        .side-drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #fff; box-shadow: 5px 0 15px rgba(0,0,0,0.1); transition: 0.3s ease; z-index: 2000; padding-top: 20px; }
-        .side-drawer.active { left: 0; }
-        .drawer-item { padding: 15px 25px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--text-main); font-weight: 500; }
-        .drawer-item:hover { background: #e3f2fd; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; z-index: 1500; }
-        .overlay.active { display: block; }
-
-        /* Cards */
-        .main-content { flex: 1; max-width: 1100px; margin: auto; padding: 40px 20px; width: 100%; box-sizing: border-box; text-align: center; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 30px; }
-        .card { background: #fff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-        .old-price { text-decoration: line-through; color: #888; font-size: 1rem; }
-        .price { font-size: 2rem; font-weight: 700; color: var(--text-main); margin: 10px 0; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-blue { background: var(--primary); color: #fff; }
-        .btn-green { background: var(--secondary); color: #fff; }
-
-        /* Payment Modal */
-        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.3); z-index: 3000; width: 90%; max-width: 400px; text-align: center; }
-        .modal h2 { color: var(--primary); margin-top: 0; }
-        .modal input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        
-        footer { background: #fff; padding: 30px; text-align: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
+        :root {
+            --primary: #0d47a1;
+            --primary-light: #e3f2fd;
+            --secondary: #2e7d32;
+            --accent: #ff6d00;
+            --bg: #f5f8ff;
+            --text: #222;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header {
+            background: var(--white);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .menu-btn {
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--primary);
+            padding: 5px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+        .menu-btn:hover {
+            background: var(--primary-light);
+        }
+        header h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        #userDisplay {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary-light);
+            padding: 5px 15px 5px 5px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        .user-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 300px;
+            height: 100%;
+            background: var(--white);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            padding-top: 20px;
+        }
+        .side-drawer.active {
+            left: 0;
+        }
+        .drawer-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+        .drawer-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        .drawer-item {
+            padding: 16px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .drawer-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+        }
+        .drawer-item:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1500;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active {
+            display: block;
+        }
+        .main-content {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .hero h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            text-align: center;
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+        .card h3 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .price-tag {
+            margin: 25px 0;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .features-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #444;
+        }
+        .features-list i {
+            color: var(--secondary);
+        }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-success {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 0 100px rgba(0,0,0,0.4);
+            z-index: 3000;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .modal h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .coupon-box {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .coupon-box input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+        .coupon-box input:focus {
+            border-color: var(--primary);
+        }
+        .upi-info {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px dashed var(--accent);
+            margin: 25px 0;
+        }
+        .upi-id {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e65100;
+            word-break: break-all;
+        }
+        footer {
+            background: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.03);
+            margin-top: 60px;
+        }
+        footer p {
+            margin: 10px 0;
+            color: #666;
+            font-weight: 500;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4rem; }
+            .card { padding: 25px; }
+            .modal { padding: 25px; }
+        }
     </style>
 </head>
 <body>
@@ -50,147 +324,206 @@
 <div class="overlay" id="overlay"></div>
 
 <div class="side-drawer" id="sideDrawer">
-    <div style="padding: 20px; border-bottom: 1px solid #eee;"><h3>EduTesters Menu</h3></div>
+    <div class="drawer-header">
+        <h3>EduTesters</h3>
+    </div>
     <a href="profile.html" class="drawer-item"><i class="fas fa-user-circle"></i> My Profile</a>
-    <a href="#" class="drawer-item" onclick="logout()" id="sidebarLogout" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="#" class="drawer-item"><i class="fas fa-book-open"></i> Test Series</a>
+    <a href="#" class="drawer-item"><i class="fas fa-chart-bar"></i> Analysis</a>
+    <div id="sidebarLogout" style="display:none;">
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+        <a href="#" class="drawer-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
 </div>
 
 <header>
     <div class="nav-left">
-        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
         <h1>EduTesters</h1>
     </div>
-    <div id="authArea">
-        <div id="googleBtn"></div>
-        <div id="userDisplay" style="display:none;"></div>
+    <div id="authSection">
+        <div id="googleBtnWrapper"></div>
+        <div id="userDisplay" onclick="location.href='profile.html'"></div>
     </div>
 </header>
 
 <div class="main-content">
-    <p>JEE Main Online Test Series & Preparation</p>
+    <div class="hero">
+        <h2>Crack JEE Main 2026</h2>
+        <p>Expertly designed test series to boost your All India Rank</p>
+    </div>
+
     <div class="card-grid">
         <div class="card">
-            <h2>Starters (Free)</h2>
-            <div class="price">₹0</div>
-            <button class="btn btn-blue" onclick="openFreeTests()">Access Free Tests</button>
+            <h3>Starters</h3>
+            <div class="price-tag">
+                <span class="current-price">₹0</span>
+            </div>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> 15 Full-length Mock Tests</li>
+                <li><i class="fas fa-check-circle"></i> Basic Performance Analysis</li>
+                <li><i class="fas fa-check-circle"></i> Mobile App Access</li>
+            </ul>
+            <button class="btn btn-primary" onclick="accessFree()">Start Practicing</button>
         </div>
 
         <div class="card" id="rankBoosterCard">
-            <h2>Rank Boosters</h2>
-            <div id="priceDisplay">
-                <span class="old-price">₹5999</span>
-                <div class="price">₹3999</div>
+            <div style="position:absolute; top:15px; right:-35px; background:var(--accent); color:white; padding:5px 40px; transform:rotate(45deg); font-size:0.8rem; font-weight:bold;">BEST VALUE</div>
+            <h3>Rank Boosters</h3>
+            <div id="mainPriceDisplay">
+                <div class="price-tag">
+                    <span class="old-price">₹5999</span>
+                    <span class="current-price">₹3999</span>
+                </div>
             </div>
-            <button class="btn btn-green" id="buyBtn" onclick="openPaymentModal()">Buy Now</button>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> 50+ Chapter-wise Tests</li>
+                <li><i class="fas fa-check-circle"></i> Detailed Video Solutions</li>
+                <li><i class="fas fa-check-circle"></i> 1-on-1 Mentorship Session</li>
+            </ul>
+            <button class="btn btn-success" id="mainBuyBtn" onclick="openPayment()">Unlock Now</button>
         </div>
     </div>
 </div>
 
-<div class="modal" id="paymentModal">
-    <h2>Complete Payment</h2>
-    <p>Price: <span id="modalPrice">₹3999</span></p>
+<div class="modal" id="payModal">
+    <h2>Complete Purchase</h2>
+    <p>Rank Booster Series</p>
+    <div style="font-size: 2rem; font-weight: 800; margin-bottom: 20px;" id="modalFinalPrice">₹3999</div>
     
-    <input type="text" id="couponCode" placeholder="Enter Coupon Code">
-    <button class="btn btn-blue" style="margin-top:0" onclick="applyCoupon()">Apply Coupon</button>
-    
-    <div style="margin: 20px 0; background: #f0f4ff; padding: 15px; border-radius: 10px;">
-        <p style="margin:0; font-size: 0.9rem;">UPI ID: <b>sumitsafe2706@okhdfcbank</b></p>
-        <p style="font-size: 0.8rem; color: #666;">Pay the amount and click verify below.</p>
+    <div class="coupon-box">
+        <input type="text" id="couponInput" placeholder="Enter Coupon Code">
+        <button class="btn btn-primary" style="width:auto; padding:0 20px;" onclick="checkCoupon()">Apply</button>
     </div>
 
-    <button class="btn btn-green" onclick="verifyPayment()">Verify & Unlock Automatically</button>
-    <button class="btn" onclick="closeModal()" style="background:#eee;">Cancel</button>
+    <div class="upi-info">
+        <p style="margin-top:0; font-weight:bold;">Scan & Pay via UPI</p>
+        <div class="upi-id">sumitsafe2706@okhdfcbank</div>
+    </div>
+
+    <button class="btn btn-success" onclick="verifySimulatedPayment()">Verify Payment</button>
+    <button class="btn" onclick="closePayment()" style="background:transparent; color:#888; margin-top:10px;">Cancel</button>
 </div>
 
 <footer>
     <p>© 2026 EduTesters. All Rights Reserved.</p>
-    <p>📞 7876720376 | ✉️ negishourya1980@gmail.com</p>
+    <div class="contact-info">
+        <a href="tel:7876720376" class="contact-item"><i class="fas fa-phone-alt"></i> 7876720376</a>
+        <a href="mailto:negishourya1980@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> negishourya1980@gmail.com</a>
+    </div>
 </footer>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-    function toggleMenu() { document.getElementById('sideDrawer').classList.toggle('active'); document.getElementById('overlay').classList.toggle('active'); }
-    function closeModal() { document.getElementById('paymentModal').style.display = "none"; document.getElementById('overlay').classList.remove('active'); }
+    const CLIENT_ID = "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com";
+    
+    function toggleSidebar() {
+        document.getElementById('sideDrawer').classList.toggle('active');
+        document.getElementById('overlay').classList.toggle('active');
+    }
+    
+    document.getElementById('overlay').onclick = () => {
+        toggleSidebar();
+        closePayment();
+    };
 
-    // Coupon Logic
-    let currentPrice = 3999;
-    function applyCoupon() {
-        const code = document.getElementById("couponCode").value;
-        if (code === "Jee2k26") {
-            currentPrice = 1;
-            document.getElementById("modalPrice").innerText = "₹1";
-            alert("Coupon Applied! Price is now ₹1");
+    function parseJwt(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        return JSON.parse(window.atob(base64));
+    }
+
+    function initGoogleAuth() {
+        google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: handleGoogleResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("googleBtnWrapper"),
+            { theme: "outline", size: "large", shape: "pill" }
+        );
+    }
+
+    function handleGoogleResponse(response) {
+        const payload = parseJwt(response.credential);
+        localStorage.setItem("edu_logged", "true");
+        localStorage.setItem("edu_name", payload.name);
+        localStorage.setItem("edu_email", payload.email);
+        localStorage.setItem("edu_pic", payload.picture);
+        updateState();
+    }
+
+    function updateState() {
+        const isLoggedIn = localStorage.getItem("edu_logged") === "true";
+        const isUnlocked = localStorage.getItem("rank_unlocked") === "true";
+        
+        if (isLoggedIn) {
+            document.getElementById("googleBtnWrapper").style.display = "none";
+            const userDisp = document.getElementById("userDisplay");
+            userDisp.style.display = "flex";
+            userDisp.innerHTML = `
+                <img src="${localStorage.getItem('edu_pic')}" class="user-pic">
+                <span class="user-name">${localStorage.getItem('edu_name')}</span>
+            `;
+            document.getElementById("sidebarLogout").style.display = "block";
+        }
+
+        if (isUnlocked) {
+            document.getElementById("mainPriceDisplay").innerHTML = '<div class="price-tag"><span class="current-price" style="color:var(--secondary)">UNLOCKED</span></div>';
+            const btn = document.getElementById("mainBuyBtn");
+            btn.innerText = "Access Tests";
+            btn.onclick = () => window.location.href = "free-tests.html";
+        }
+    }
+
+    function openPayment() {
+        if (localStorage.getItem("edu_logged") !== "true") {
+            alert("Please login with Google first!");
+            return;
+        }
+        document.getElementById("payModal").style.display = "block";
+        document.getElementById("overlay").classList.add("active");
+    }
+
+    function closePayment() {
+        document.getElementById("payModal").style.display = "none";
+        document.getElementById("overlay").classList.remove("active");
+    }
+
+    function checkCoupon() {
+        const val = document.getElementById("couponInput").value;
+        if (val === "Jee2k26") {
+            document.getElementById("modalFinalPrice").innerText = "₹1";
+            alert("Coupon Applied! Price reduced to ₹1.");
         } else {
             alert("Invalid Coupon Code");
         }
     }
 
-    // Payment Logic
-    function openPaymentModal() {
-        if (localStorage.getItem("userLoggedIn") !== "true") {
-            alert("Please login first to purchase.");
-            return;
-        }
-        document.getElementById('paymentModal').style.display = "block";
-        document.getElementById('overlay').classList.add('active');
+    function verifySimulatedPayment() {
+        alert("Payment process completed. Content Unlocked!");
+        localStorage.setItem("rank_unlocked", "true");
+        closePayment();
+        updateState();
     }
 
-    function verifyPayment() {
-        // In a real app, you'd check a backend API here.
-        alert("Payment Verified! Rank Booster Unlocked.");
-        localStorage.setItem("rankBoosterUnlocked", "true");
-        closeModal();
-        updateUI();
-    }
-
-    // Standard Google Login / UI functions
-    function decodeJwt(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        return JSON.parse(window.atob(base64));
-    }
-
-    function initializeGoogleLogin() {
-        google.accounts.id.initialize({
-            client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
-            callback: (response) => {
-                const data = decodeJwt(response.credential);
-                localStorage.setItem("userLoggedIn", "true");
-                localStorage.setItem("userName", data.name);
-                localStorage.setItem("userEmail", data.email);
-                localStorage.setItem("userPic", data.picture);
-                updateUI();
-            }
-        });
-        google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", shape: "pill" });
-    }
-
-    function updateUI() {
-        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-        if (isLoggedIn) {
-            document.getElementById("googleBtn").style.display = "none";
-            const userDisplay = document.getElementById("userDisplay");
-            userDisplay.style.display = "flex";
-            userDisplay.innerHTML = `<img src="${localStorage.getItem('userPic')}" class="user-pic"> <span>${localStorage.getItem('userName')}</span>`;
-            document.getElementById("sidebarLogout").style.display = "flex";
-        }
-
-        // Check if Booster is unlocked
-        if (localStorage.getItem("rankBoosterUnlocked") === "true") {
-            document.getElementById("priceDisplay").innerHTML = "<div class='price' style='color:green'>UNLOCKED ✓</div>";
-            const buyBtn = document.getElementById("buyBtn");
-            buyBtn.innerText = "Access Rank Booster";
-            buyBtn.onclick = () => window.location.href = "rank-booster-tests.html";
+    function accessFree() {
+        if (localStorage.getItem("edu_logged") === "true") {
+            window.location.href = "free-tests.html";
+        } else {
+            alert("Please login to access the free tests.");
         }
     }
 
-    function openFreeTests() {
-        if (localStorage.getItem("userLoggedIn") === "true") window.location.href = "free-tests.html";
-        else alert("Please login first!");
+    function handleLogout() {
+        localStorage.clear();
+        location.reload();
     }
 
-    function logout() { localStorage.clear(); location.reload(); }
-    window.onload = () => { setTimeout(initializeGoogleLogin, 300); updateUI(); };
+    window.onload = () => {
+        setTimeout(initGoogleAuth, 500);
+        updateState();
+    };
 </script>
 </body>
 </html>
