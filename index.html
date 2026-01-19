@@ -7,201 +7,143 @@
 
 <style>
 body{
-    margin:0;
-    font-family: "Segoe UI", sans-serif;
-    background:#f5f8ff;
-    color:#222;
+  margin:0;
+  font-family:"Segoe UI",sans-serif;
+  background:#f5f8ff;
+  color:#222;
 }
-
 header{
-    background:#ffffff;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  background:#fff;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
-
 header h1{
-    margin:0;
-    color:#0d47a1;
-    font-size:2.4rem;
+  margin:0;
+  color:#0d47a1;
+  font-size:2.4rem;
 }
-
-header p{
-    color:#555;
-}
-
 .container{
-    max-width:1100px;
-    margin:auto;
-    padding:40px 20px;
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
 }
-
 .top-bar{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:30px;
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:30px;
 }
-
 .card-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
 }
-
 .card{
-    background:#ffffff;
-    padding:30px;
-    border-radius:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
-
-.card h2{
-    margin-top:0;
-    color:#0d47a1;
-}
-
-.price{
-    font-size:1.8rem;
-}
-
-.old{
-    text-decoration:line-through;
-    color:#888;
-    font-size:1rem;
-}
-
+.card h2{color:#0d47a1}
 .btn{
-    width:100%;
-    padding:14px;
-    margin-top:15px;
-    border:none;
-    border-radius:8px;
-    font-size:1rem;
-    cursor:pointer;
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  font-size:1rem;
+  cursor:pointer;
 }
-
-.btn-blue{
-    background:#0d47a1;
-    color:#fff;
-}
-
-.btn-green{
-    background:#2e7d32;
-    color:#fff;
-}
-
+.btn-blue{background:#0d47a1;color:#fff}
+.btn-green{background:#2e7d32;color:#fff}
 footer{
-    background:#ffffff;
-    margin-top:50px;
-    padding:20px;
-    text-align:center;
-    font-size:0.9rem;
-    box-shadow:0 -4px 12px rgba(0,0,0,0.05);
+  background:#fff;
+  margin-top:50px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 -4px 12px rgba(0,0,0,.05);
 }
 </style>
 </head>
 
 <body>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-
-    authDomain: "negi-shourya.github.io/EduTesters/",
-    projectId: "edutesters",
-    
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-    // 🔹 Check login state
-auth.onAuthStateChanged(user => {
-  if (user) {
-    // user is logged in → go to profile
-    window.location.href = "profile.html";
-  }
-});
-</script>
 <header>
-    <h1>EduTesters</h1>
-    <p>JEE Main Online Test Series</p>
+  <h1>EduTesters</h1>
+  <p>JEE Main Online Test Series</p>
 </header>
 
 <div class="container">
 
-    <!-- LOGIN -->
-    <div class="top-bar">
-        <div id="googleBtn"></div>
+  <div class="top-bar">
+    <button id="loginBtn">Login with Google</button>
+  </div>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <h2>Starters (Free)</h2>
+      <p>₹0</p>
+      <p>15 Tests • 300 Marks • 3 Hours</p>
+      <button class="btn btn-blue" onclick="openFree()">View Free Tests</button>
     </div>
 
-    <!-- TEST SERIES -->
-    <div class="card-grid">
-
-        <div class="card">
-            <h2>Starters (Free)</h2>
-            <p class="price">₹0</p>
-            <button class="btn btn-blue" onclick="openFree()">View Free Tests</button>
-            <p>15 Full-length tests • 300 Marks • 3 Hours</p>
-        </div>
-
-        <div class="card">
-            <h2>Rank Boosters</h2>
-            <p class="price"><span class="old">₹5999</span><br>₹3999</p>
-            <button class="btn btn-green">Coming Soon</button>
-        </div>
-
+    <div class="card">
+      <h2>Rank Boosters</h2>
+      <p><del>₹5999</del><br>₹3999</p>
+      <button class="btn btn-green">Coming Soon</button>
     </div>
+
+  </div>
 </div>
 
 <footer>
-    <p>© 2026 EduTesters. All Rights Reserved.</p>
-    <p>📞 7876720376 | ✉️ negishourya1980@gmail.com</p>
+  <p>© 2026 EduTesters. All Rights Reserved.</p>
+  <p>📞 7876720376 | ✉️ negishourya1980@gmail.com</p>
 </footer>
 
-<!-- GOOGLE SIGN-IN (WORKING) -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-<script>
-window.onload = function () {
-  google.accounts.id.initialize({
-    client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
-   
-    callback: handleGoogleLogin
-  });
-
-  google.accounts.id.renderButton(
-    document.getElementById("googleBtn"),
-    { theme: "outline", size: "large" }
-  );
-};
-
-function handleGoogleLogin(response){
-    console.log("JWT Token:", response.credential);
-    localStorage.setItem("loggedIn", "true");
-    alert("Login successful 🎉");
-}
-
-function openFree(){
-    if(localStorage.getItem("loggedIn") === "true"){
-        window.location.href = "free-tests.html";
-    }else{
-        alert("Please login first");
-    }
-}
-</script>
-<!-- Firebase SDKs -->
+<!-- Firebase SDKs (ONLY THIS SET) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
+/* 🔹 Firebase Config */
+const firebaseConfig = {
+  apiKey: "AIzaSyDsj_2U_hbNdvzdGMu9y5pEPX9FdibJZow",
+  authDomain: "edutesters.firebaseapp.com",
+  projectId: "edutesters",
+  storageBucket: "edutesters.appspot.com",
+  messagingSenderId: "207841444142",
+  appId: "1:207841444142:web:02a9e37a7e89b57ab4babf"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* 🔹 Google Login */
+document.getElementById("loginBtn").onclick = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider);
+};
+
+/* 🔹 Auth State */
+auth.onAuthStateChanged(user => {
+  if(user){
+    window.location.href = "profile.html";
+  }
+});
+
+function openFree(){
+  if(auth.currentUser){
+    window.location.href = "free-tests.html";
+  }else{
+    alert("Please login first");
+  }
+}
+</script>
 
 </body>
 </html>
