@@ -121,6 +121,13 @@ footer{
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+    // 🔹 Check login state
+auth.onAuthStateChanged(user => {
+  if (user) {
+    // user is logged in → go to profile
+    window.location.href = "profile.html";
+  }
+});
 </script>
 <header>
     <h1>EduTesters</h1>
