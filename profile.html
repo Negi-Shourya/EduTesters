@@ -1,141 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>My Profile | EduTesters</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-  margin:0;
-  font-family:Segoe UI, Arial, sans-serif;
-  background:#f5f8ff;
-}
-header{
-  background:#ffffff;
-  padding:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-.logo{
-  font-size:22px;
-  font-weight:700;
-  color:#0d47a1;
-}
-.container{
-  max-width:600px;
-  margin:40px auto;
-  background:#ffffff;
-  padding:30px;
-  border-radius:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
-  text-align:center;
-}
-.avatar{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#0d47a1;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:36px;
-  font-weight:bold;
-  margin:0 auto 20px;
-}
-.info{
-  font-size:16px;
-  margin:8px 0;
-}
-button{
-  margin-top:20px;
-  padding:12px 18px;
-  border:none;
-  border-radius:8px;
-  font-size:15px;
-  cursor:pointer;
-}
-.logout{
-  background:#c62828;
-  color:white;
-}
-.home{
-  background:#0d47a1;
-  color:white;
-  margin-right:10px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | EduTesters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f5f8ff; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        header { background: #fff; width: 100%; padding: 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .profile-container { background: #fff; margin-top: 50px; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #0d47a1; margin-bottom: 20px; }
+        h2 { color: #0d47a1; margin: 10px 0; }
+        p { color: #666; margin-bottom: 30px; }
+        .btn { display: block; width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-decoration: none; font-size: 1rem; }
+        .btn-home { background: #0d47a1; color: #fff; }
+        .btn-logout { background: #e53935; color: #fff; }
+    </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">EduTesters</div>
+    <h1 style="margin:0; color:#0d47a1;">EduTesters</h1>
 </header>
 
-<div class="container">
-  <div class="avatar" id="avatar">?</div>
-  <h2 id="username">Loading...</h2>
-  <p class="info" id="email"></p>
-
-  <div>
-    <button class="home" onclick="goHome()">Home</button>
-    <button class="logout" onclick="logout()">Logout</button>
-  </div>
+<div class="profile-container">
+    <img id="displayPic" src="" alt="Profile Picture" class="profile-pic">
+    <h2 id="displayName">User Name</h2>
+    <p id="displayEmail">user@email.com</p>
+    
+    <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+    
+    <a href="index.html" class="btn btn-home">Back to Dashboard</a>
+    <button onclick="logout()" class="btn btn-logout">Logout Account</button>
 </div>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <script>
-/* 🔹 Firebase config (EduTesters) */
-const firebaseConfig = {
-  apiKey: "AIzaSyDsj_2U_hbNdvzdGMu9y5pEPX9FdibJZow",
-  authDomain: "edutesters.firebaseapp.com",
-  projectId: "edutesters",
-  storageBucket: "edutesters.appspot.com",
-  messagingSenderId: "207841444142",
-  appId: "1:207841444142:web:02a9e37a7e89b57ab4babf"
-};
+    window.onload = function() {
+        if (localStorage.getItem("userLoggedIn") !== "true") {
+            alert("Not logged in!");
+            window.location.href = "index.html";
+            return;
+        }
 
-firebase.initializeApp(firebaseConfig);
+        // Fetch data from localStorage
+        document.getElementById("displayName").innerText = localStorage.getItem("userName");
+        document.getElementById("displayEmail").innerText = localStorage.getItem("userEmail");
+        document.getElementById("displayPic").src = localStorage.getItem("userPic");
+    };
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-/* 🔹 Load user profile */
-auth.onAuthStateChanged(async user=>{
-  if(!user){
-    window.location.href = "index.html";
-    return;
-  }
-
-  const doc = await db.collection("users").doc(user.uid).get();
-  if(doc.exists){
-    const data = doc.data();
-    document.getElementById("username").innerText = data.username;
-    document.getElementById("email").innerText = data.email;
-    document.getElementById("avatar").innerText =
-      data.username.charAt(0).toUpperCase();
-  }
-});
-
-/* 🔹 Logout */
-function logout(){
-  auth.signOut().then(()=>{
-    window.location.href = "index.html";
-  });
-}
-
-/* 🔹 Home */
-function goHome(){
-  window.location.href = "index.html";
-}
+    function logout() {
+        localStorage.clear();
+        window.location.href = "index.html";
+    }
 </script>
 
 </body>
