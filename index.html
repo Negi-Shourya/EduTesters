@@ -1,149 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>EduTesters | JEE Main Test Series</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTesters | JEE Main Test Series</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --secondary: #34a853;
+            --text-dark: #202124;
+            --text-light: #5f6368;
+            --bg-light: #f8f9fa;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:"Segoe UI",sans-serif;
-  background:#f5f8ff;
-  color:#222;
-}
-header{
-  background:#fff;
-  padding:20px;
-  text-align:center;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-header h1{
-  margin:0;
-  color:#0d47a1;
-  font-size:2.4rem;
-}
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:40px 20px;
-}
-.top-bar{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:30px;
-}
-.card-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:30px;
-}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-.card h2{color:#0d47a1}
-.btn{
-  width:100%;
-  padding:14px;
-  margin-top:15px;
-  border:none;
-  border-radius:8px;
-  font-size:1rem;
-  cursor:pointer;
-}
-.btn-blue{background:#0d47a1;color:#fff}
-.btn-green{background:#2e7d32;color:#fff}
-footer{
-  background:#fff;
-  margin-top:50px;
-  padding:20px;
-  text-align:center;
-  box-shadow:0 -4px 12px rgba(0,0,0,.05);
-}
-</style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar & Hero */
+        header {
+            background: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Cards Grid */
+        .container {
+            max-width: 1100px;
+            margin: -40px auto 50px;
+            padding: 0 20px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 30px;
+            flex-grow: 1;
+        }
+
+        .features li {
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+        .features i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        .btn-disabled { background: #e0e0e0; color: #999; cursor: not-allowed; }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-  <h1>EduTesters</h1>
-  <p>JEE Main Online Test Series</p>
+    <a href="#" class="logo">EduTesters</a>
+    <div id="googleBtn"></div>
 </header>
 
+<section class="hero">
+    <h1>Master the JEE Main</h1>
+    <p>Realistic mock tests, detailed analytics, and rank-boosting practice designed by experts.</p>
+</section>
+
 <div class="container">
+    <div class="card-grid">
+        <div class="card">
+            <h2>Starters</h2>
+            <div class="price">Free</div>
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> 15 Full-length tests</li>
+                <li><i class="fas fa-check-circle"></i> Instant Answer Keys</li>
+                <li><i class="fas fa-check-circle"></i> Mobile Friendly</li>
+            </ul>
+            <button class="btn btn-outline" id="freeBtn">Access Tests</button>
+        </div>
 
-  <div class="top-bar">
-    <button id="loginBtn">Login with Google</button>
-  </div>
-
-  <div class="card-grid">
-
-    <div class="card">
-      <h2>Starters (Free)</h2>
-      <p>₹0</p>
-      <p>15 Tests • 300 Marks • 3 Hours</p>
-      <button class="btn btn-blue" onclick="openFree()">View Free Tests</button>
+        <div class="card">
+            <h2>Rank Boosters</h2>
+            <div class="price">₹3,999 <span class="old-price">₹5,999</span></div>
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> 50+ Advanced Mock Tests</li>
+                <li><i class="fas fa-check-circle"></i> Detailed Rank Analysis</li>
+                <li><i class="fas fa-check-circle"></i> Video Solutions Included</li>
+            </ul>
+            <button class="btn btn-disabled">Coming Soon</button>
+        </div>
     </div>
-
-    <div class="card">
-      <h2>Rank Boosters</h2>
-      <p><del>₹5999</del><br>₹3999</p>
-      <button class="btn btn-green">Coming Soon</button>
-    </div>
-
-  </div>
 </div>
 
 <footer>
-  <p>© 2026 EduTesters. All Rights Reserved.</p>
-  <p>📞 7876720376 | ✉️ negishourya1980@gmail.com</p>
+    <p>&copy; 2026 EduTesters. All Rights Reserved.</p>
+    <p><i class="fas fa-envelope"></i> negishourya1980@gmail.com | <i class="fas fa-phone"></i> +91 7876720376</p>
 </footer>
 
-<!-- Firebase SDKs (ONLY THIS SET) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithCredential } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-<script>
-/* 🔹 Firebase Config */
-const firebaseConfig = {
-  apiKey: "AIzaSyDsj_2U_hbNdvzdGMu9y5pEPX9FdibJZow",
-  authDomain: "edutesters.firebaseapp.com",
-  projectId: "edutesters",
-  storageBucket: "edutesters.appspot.com",
-  messagingSenderId: "207841444142",
-  appId: "1:207841444142:web:02a9e37a7e89b57ab4babf"
-};
+  const firebaseConfig = {
+    authDomain: "negi-shourya.github.io/EduTesters/",
+    projectId: "edutesters",
+  };
 
-firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+  // Initialize Google Identity Services
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "207841444142-pdts1e362dv8hh8v7ro8itj9fdo3rm30.apps.googleusercontent.com",
+      callback: handleGoogleLogin
+    });
 
-/* 🔹 Google Login */
-document.getElementById("loginBtn").onclick = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider);
-};
+    google.accounts.id.renderButton(
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large", shape: "pill" }
+    );
+  };
 
-/* 🔹 Auth State */
-auth.onAuthStateChanged(user => {
-  if(user){
-    window.location.href = "profile.html";
+  async function handleGoogleLogin(response) {
+    // This allows you to link Google GSI with Firebase Auth
+    console.log("Logged in via Google");
+    localStorage.setItem("userLoggedIn", "true");
+    location.reload(); // Refresh to update UI state
   }
-});
 
-function openFree(){
-  if(auth.currentUser){
-    window.location.href = "free-tests.html";
-  }else{
-    alert("Please login first");
-  }
-}
+  // Handle Free Test Click
+  document.getElementById('freeBtn').addEventListener('click', () => {
+    if (localStorage.getItem("userLoggedIn") === "true") {
+        window.location.href = "free-tests.html";
+    } else {
+        alert("Please sign in with Google to access free tests.");
+    }
+  });
+
+  // Observe Auth State
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("Firebase user detected:", user.displayName);
+      localStorage.setItem("userLoggedIn", "true");
+    }
+  });
 </script>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </body>
 </html>
